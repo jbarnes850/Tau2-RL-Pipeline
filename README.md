@@ -1,6 +1,10 @@
 # Training Multi-Turn Tool-Use Agents with GRPO
 
-A 4B parameter model achieving **57.1% Pass@4** on tau2-bench (test split): **4x better than the base model** and competitive with models 6-60x larger.
+[![Model](https://img.shields.io/badge/HF-Model-yellow?logo=huggingface)](https://huggingface.co/Jarrodbarnes/Qwen3-4B-tau2-grpo-v1)
+[![Dataset](https://img.shields.io/badge/HF-Dataset-yellow?logo=huggingface)](https://huggingface.co/datasets/Jarrodbarnes/tau2-sft-seed-v3)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+A 4B parameter model achieving **57.1% Pass@4** on tau2-bench (test split), 4x better than the base model and competitive with models 6-60x larger.
 
 <p align="center">
   <img src="public/performance-chart.jpeg" alt="Performance comparison" width="600">
