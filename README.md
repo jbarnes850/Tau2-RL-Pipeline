@@ -16,15 +16,15 @@ Everything is open source: [training data](https://huggingface.co/datasets/Jarro
 
 ---
 
-## The Problem: Credit Assignment in Multi-Turn Tool-Use
+## Credit Assignment in Multi-Turn Tool-Use
 
-Consider a telecom troubleshooting task where the agent guides a user through 20+ turns of diagnostics before solving their MMS issue. At step 15, the agent asks the user to grant app permissions (a critical action). But the final reward only arrives at step 20.
+In a telecom troubleshooting task, the agent guides a user through 20+ turns of diagnostics before solving their MMS issue. At step 15, the agent asks the user to grant app permissions, a critical action. But the final reward only arrives at step 20.
 
-**How does the model know step 15 mattered?**
+How does the model know step 15 mattered?
 
-Standard outcome-based rewards (0/1) provide essentially zero gradient across intermediate steps. The model sees no signal until task completion. For complex tool-use, this is catastrophic. Early SFT attempts achieved 8.57% on tau2-bench (test split)—*worse* than the unprompted baseline.
+Standard outcome-based rewards (0/1) provide essentially zero gradient across intermediate steps. The model sees no signal until task completion. For complex tool-use, this is catastrophic. Early SFT attempts achieved 8.57% on tau2-bench, which is actually *worse* than the unprompted baseline of 14.3%.
 
-## Why This Pipeline Works
+## Method
 
 ### Stage 1: SFT (Teaching Protocol)
 
@@ -34,7 +34,7 @@ Before a model can *optimize* tool-use, it must understand the rules:
 2. **Tool schemas**: 30+ tools across domains with complex argument structures
 3. **Dual-control**: In telecom, the agent coaches users through diagnostics rather than executing them
 
-Without SFT, RL training thrashes. With SFT on filtered trajectories, we achieve 27% on test—establishing a foundation for exploration.
+Without SFT, RL training thrashes. With SFT on filtered trajectories, we reach 27% on test, which gives the model enough competence to explore productively.
 
 ### Stage 2: Rejection Sampling (RFT)
 
@@ -50,7 +50,7 @@ The published [tau2-sft-seed-v3](https://huggingface.co/datasets/Jarrodbarnes/ta
 
 GRPO solves credit assignment through two mechanisms:
 
-**Group-based advantage estimation**: For each prompt, sample K trajectories, score them, and train the model to increase probability of high-reward actions relative to the group average. This is *relative* optimization—the model learns "this action was better than my other attempts."
+**Group-based advantage estimation**: For each prompt, sample K trajectories, score them, and train the model to increase probability of high-reward actions relative to the group average. The model learns "this action was better than my other attempts" rather than "this action is good in absolute terms."
 
 **Dense reward shaping**: Tau2-bench provides turn-level evaluation (action checks, communication checks, environment assertions). We extract partial scores and shape rewards:
 
@@ -70,7 +70,7 @@ This provides gradient at every turn, not just at task completion.
 | GRPO (Pass@1, greedy) | 32.9% | 15.0% | 76.0% | 4.0% |
 | **GRPO (Pass@4)** | **57.1%** | **50.0%** | **76.0%** | **44.0%** |
 
-The 24.2 percentage point gain from Pass@1 to Pass@4 demonstrates that RL-trained models benefit significantly from inference-time exploration. They learn multiple viable strategies rather than overfitting to a single path.
+The 24.2 percentage point gain from Pass@1 to Pass@4 shows that RL-trained models benefit from inference-time exploration. They learn multiple viable strategies instead of overfitting to one path.
 
 [Training logs (WandB)](https://wandb.ai/jbarnes850-near-protocol/tau2-cookbook)
 
