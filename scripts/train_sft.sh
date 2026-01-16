@@ -15,7 +15,7 @@ set -ex
 export PYTHONUNBUFFERED=1
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-REPO_ROOT="$(cd -- "${SCRIPT_DIR}/../../.." &>/dev/null && pwd)"
+REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." &>/dev/null && pwd)"
 TAU_BENCH_OUT_DIR="${TAU_BENCH_OUT_DIR:-${SCRIPT_DIR}/../outputs}"
 MEGATRON_LM_DIR="${MEGATRON_LM_DIR:-/root/Megatron-LM}"
 
@@ -30,7 +30,7 @@ SAVE_DIR="${SAVE_DIR:-${TAU_BENCH_OUT_DIR}/tau2/checkpoints/Qwen3-4B-tau2-sft1}"
 
 NUM_GPUS="${NUM_GPUS:-4}"
 
-source "${SCRIPT_DIR}/../../../scripts/models/qwen3-4B-Instruct-2507.sh"
+source "/root/slime/scripts/models/qwen3-4B-Instruct-2507.sh"
 
 CKPT_ARGS=(
   --hf-checkpoint "${HF_DIR}"

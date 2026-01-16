@@ -8,20 +8,15 @@ import asyncio
 import json
 import logging
 import os
-import sys
 from dataclasses import asdict, dataclass
 from typing import Any
 
 import httpx
 from transformers import AutoTokenizer
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-if SCRIPT_DIR not in sys.path:
-    sys.path.insert(0, SCRIPT_DIR)
-
-from actions import env_action_from_parsed_action, followup_messages_for_observation, parse_action
-from env import compute_partial_score_from_reward_info, parse_reward_info
-from prompting import build_tau2_agent_system_prompt
+from tau2_rl_pipeline.actions import env_action_from_parsed_action, followup_messages_for_observation, parse_action
+from tau2_rl_pipeline.env import compute_partial_score_from_reward_info, parse_reward_info
+from tau2_rl_pipeline.prompting import build_tau2_agent_system_prompt
 
 logger = logging.getLogger(__name__)
 
