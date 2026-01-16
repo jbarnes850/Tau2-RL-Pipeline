@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tau2-rl-pipeline"
+version = "0.1.0"
+description = "Multi-turn tool-use training pipeline for tau2-bench using slime"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "Jarrod Barnes" }]
+dependencies = [
+    "transformers>=4.40.0",
+    "torch>=2.0.0",
+    "httpx>=0.24.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+train = [
+    "slime @ git+https://github.com/THUDM/slime.git",
+    "tau2>=0.1.0",
+]
+dev = ["pytest>=7.0.0", "ruff>=0.1.0"]
+
+[project.urls]
+Repository = "https://github.com/jbarnes850/Tau2-RL-Pipeline"
+
+[project.scripts]
+tau2-eval = "eval.eval_passk:main"
