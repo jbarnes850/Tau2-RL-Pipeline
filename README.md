@@ -2,11 +2,17 @@
 
 Multi-turn tool-use training pipeline for tau2-bench using [slime](https://github.com/THUDM/slime).
 
-We report a 4B parameter model achieving **57.1% Pass@4** on tau2-bench (test split): **4x better than the base model** and competitive with models 6-60x larger.
+A 4B parameter model achieving **57.1% Pass@4** on tau2-bench (test split): **4x better than the base model** and competitive with models 6-60x larger.
 
-![Tau2 pipeline overview](public/slime-pipeline-tau2.jpeg)
+<p align="center">
+  <img src="public/performance-chart.jpeg" alt="Tau2 performance comparison" width="600">
+</p>
 
-## Performance
+<p align="center">
+  <img src="public/slime-pipeline-tau2.jpeg" alt="Tau2 training pipeline" width="700">
+</p>
+
+## Results
 
 | Stage | Overall | Airline | Retail | Telecom |
 |-------------------------------|---------|---------|--------|---------|
@@ -15,8 +21,6 @@ We report a 4B parameter model achieving **57.1% Pass@4** on tau2-bench (test sp
 | SFT1 (RFT) | 27.0% | 20.0% | 50.0% | 7.5% |
 | GRPO (Pass@1, greedy) | 32.9% | 15.0% | 76.0% | 4.0% |
 | **GRPO (Pass@4, reported)** | **57.1%** | **50.0%** | **76.0%** | **44.0%** |
-
-![Tau2 performance comparison](public/performance-chart.jpeg)
 
 ## Setup
 
